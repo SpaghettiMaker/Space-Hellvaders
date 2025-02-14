@@ -21,6 +21,17 @@ void Spaceship::FireLaser()
     Laser laser = Laser({position.x + image.width / 2 - 3, position.y}, 10);
     lasers.push_back(laser);
 }
+Rectangle Spaceship::getRect()
+{
+    return {position.x, position.y, float(image.width), float(image.height)};
+}
+void Spaceship::Reset()
+{
+    position = {
+        static_cast<float>(GetScreenWidth() - image.width) / 2,
+        static_cast<float>(GetScreenHeight() - image.width)};
+    lasers.clear();
+}
 void Spaceship::MoveRight()
 {
     position.x += 5;

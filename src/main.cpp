@@ -2,7 +2,7 @@
 #include "game.hpp"
 
 #define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_HEIGHT 700
 
 int main()
 {

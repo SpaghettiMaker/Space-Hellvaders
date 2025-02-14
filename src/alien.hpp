@@ -14,4 +14,5 @@ public:
     int GetType();
     static Texture2D alienImages[3];
     static void UnloadImages();
+    Rectangle getRect();
 };

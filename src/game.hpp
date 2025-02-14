@@ -2,7 +2,7 @@
 #include "spaceship.hpp"
 #include "obstacle.hpp"
 #include "alien.hpp"
-
+#include "mysteryship.hpp"
 class Game
 {
 private:
@@ -19,6 +19,15 @@ private:
     void AlienShootLaser();
     constexpr static float alienLaserShootInterval = 0.35;
     float timeLastAlienFired;
+    MysteryShip mysteryShip;
+    float mysteryShipSpawnInterval;
+    float timeLastSpawn;
+    void CheckForCollision();
+    int lives;
+    bool run;
+    int Reset();
+    int GameOver();
+    int InitGame();
 
 public:
     Game();

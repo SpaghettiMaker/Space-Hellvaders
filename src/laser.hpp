@@ -9,6 +9,8 @@ public:
     void Draw();
     void Update();
     bool IsOutOfScreen();
+    Rectangle getRect();
+    bool active;
 
 private:
     Texture2D image;

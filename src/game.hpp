@@ -28,6 +28,9 @@ private:
     int Reset();
     int GameOver();
     int InitGame();
+    int score;
+    Sound explosionSound;
+    Music music;
 
 public:
     Game();
@@ -35,4 +38,8 @@ public:
     void Draw();
     void Update();
     void HandleInput();
+    bool GetRun();
+    int GetLives();
+    int GetScore();
+    Music getMusic();
 };

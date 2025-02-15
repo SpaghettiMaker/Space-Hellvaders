@@ -34,7 +34,7 @@ void Laser::Update()
 
 bool Laser::IsOutOfScreen()
 {
-    return position.y < 0 || position.y > GetScreenHeight();
+    return position.y < 25 || position.y > GetScreenHeight() - 100;
 }
 
 Rectangle Laser::getRect()

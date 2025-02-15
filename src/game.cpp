@@ -3,18 +3,27 @@
 
 void Game::CheckForCollision()
 {
-    // CREATE AN ITERATOR
     for (auto &laser : spaceship.lasers)
     {
         auto it = aliens.begin();
         while (it != aliens.end())
         {
-            // IF THE LASER HIT AN ALIEN
             if (CheckCollisionRecs(it->getRect(), laser.getRect()))
             {
-                // ALIEN REMOVED
+                PlaySound(explosionSound);
                 it = aliens.erase(it);
-                // REMOVE THE LASER
+                if (it->GetType() == 1)
+                {
+                    score += 100;
+                }
+                if (it->GetType() == 2)
+                {
+                    score += 200;
+                }
+                else
+                {
+                    score += 300;
+                }
                 laser.active = false;
             }
             else
@@ -41,6 +50,7 @@ void Game::CheckForCollision()
             {
                 mysteryShip.alive = false;
                 laser.active = false;
+                score += 500;
             }
         }
     }
@@ -108,6 +118,7 @@ int Game::Reset()
     timeLastAlienFired = 0.0;
     mysteryShipSpawnInterval = GetRandomValue(10, 20);
     lives = 3;
+    score = 0;
     run = true;
     return 0;
 }
@@ -134,12 +145,17 @@ int Game::InitGame()
 
 Game::Game()
 {
+    music = LoadMusicStream("resources/sounds/Sounds_music.ogg");
+    explosionSound = LoadSound("resources/sounds/Sounds_explosion.ogg");
+    PlayMusicStream(music);
     Reset();
 }
 
 Game::~Game()
 {
     Alien::UnloadImages();
+    UnloadMusicStream(music);
+    UnloadSound(explosionSound);
 }
 
 void Game::Draw()
@@ -222,6 +238,26 @@ void Game::HandleInput()
     }
 }
 
+bool Game::GetRun()
+{
+    return run;
+}
+
+int Game::GetLives()
+{
+    return lives;
+}
+
+int Game::GetScore()
+{
+    return score;
+}
+
+Music Game::getMusic()
+{
+    return music;
+}
+
 void Game::DeleteInactiveLasers()
 {
     for (auto it = spaceship.lasers.begin(); it != spaceship.lasers.end();)
@@ -264,7 +300,7 @@ std::vector<Obstacle> Game::GenerateObstacles()
     for (int i = 0; i < 4; i++)
     {
         float offsetX = (i + 1) * gap + i * obstacleWidth;
-        obstacles.push_back(Obstacle({offsetX, float(GetScreenHeight() - 100)}));
+        obstacles.push_back(Obstacle({offsetX, float(GetScreenHeight() - 200)}));
     }
 
     return obstacles;
@@ -305,12 +341,12 @@ void Game::MoveAliens()
 {
     for (auto &alien : aliens)
     {
-        if (alien.position.x + alien.alienImages[alien.GetType() - 1].width > GetScreenWidth())
+        if (alien.position.x + alien.alienImages[alien.GetType() - 1].width > GetScreenWidth() - 25)
         {
             aliensDirection = -1;
             MoveDownAliens(4);
         }
-        if (alien.position.x < 0)
+        if (alien.position.x < 25)
         {
             aliensDirection = 1;
             MoveDownAliens(4);

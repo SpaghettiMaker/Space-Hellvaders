@@ -5,7 +5,7 @@ Spaceship::Spaceship()
     image = LoadTexture("resources/spaceship.png");
     position = {
         static_cast<float>(GetScreenWidth() - image.width) / 2,
-        static_cast<float>(GetScreenHeight() - image.width)};
+        static_cast<float>(GetScreenHeight() - image.height - 100)};
 }
 
 Spaceship::~Spaceship()
@@ -29,30 +29,30 @@ void Spaceship::Reset()
 {
     position = {
         static_cast<float>(GetScreenWidth() - image.width) / 2,
-        static_cast<float>(GetScreenHeight() - image.width)};
+        static_cast<float>(GetScreenHeight() - image.width - 100)};
     lasers.clear();
 }
 void Spaceship::MoveRight()
 {
     position.x += 5;
-    if (position.x > GetScreenWidth() - image.width)
+    if (position.x > GetScreenWidth() - image.width - 25)
     {
-        position.x = GetScreenWidth() - image.width;
+        position.x = GetScreenWidth() - image.width - 25;
     }
-    else if (position.x < 0)
+    else if (position.x < 25)
     {
-        position.x = 0;
+        position.x = 25;
     }
 }
 void Spaceship::MoveLeft()
 {
     position.x -= 5;
-    if (position.x > GetScreenWidth() - image.width)
+    if (position.x > GetScreenWidth() - image.width - 25)
     {
-        position.x = GetScreenWidth() - image.width;
+        position.x = GetScreenWidth() - image.width - 25;
     }
-    else if (position.x < 0)
+    else if (position.x < 25)
     {
-        position.x = 0;
+        position.x = 25;
     }
 }

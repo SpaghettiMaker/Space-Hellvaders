@@ -34,7 +34,9 @@ int main()
         DrawLineEx({25, 730}, {775, 730}, 3, yellow);
         if (game.GetRun())
         {
-            DrawTextEx(font, "HELL 01", {570, 740}, 34, 2, yellow);
+            std::string hell = "HELL ";
+            std::string level = hell.append(FormatWithLeadingZeros(game.GetLevel(), 3));
+            DrawTextEx(font, level.c_str(), {570, 740}, 34, 2, yellow);
         }
         else
         {

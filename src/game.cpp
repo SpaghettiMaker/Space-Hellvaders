@@ -108,6 +108,11 @@ void Game::CheckForCollision()
             GameOver();
         }
     }
+    if (aliens.size() == 0)
+    {
+        NextLevel();
+        Reset();
+    }
 }
 
 int Game::Reset()
@@ -120,6 +125,7 @@ int Game::Reset()
     lives = 3;
     score = 0;
     run = true;
+    level = 1;
     return 0;
 }
 
@@ -141,6 +147,14 @@ int Game::InitGame()
     alienLasers.clear();
     obstacles.clear();
     return 0;
+}
+
+void Game::NextLevel()
+{
+    ++level;
+    obstacles = GenerateObstacles();
+    aliens = GenerateAliens();
+    mysteryShipSpawnInterval = GetRandomValue(5, 10);
 }
 
 Game::Game()
@@ -251,6 +265,11 @@ int Game::GetLives()
 int Game::GetScore()
 {
     return score;
+}
+
+int Game::GetLevel()
+{
+    return level;
 }
 
 Music Game::getMusic()

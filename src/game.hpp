@@ -31,6 +31,8 @@ private:
     int score;
     Sound explosionSound;
     Music music;
+    void NextLevel();
+    int level;
 
 public:
     Game();
@@ -41,5 +43,6 @@ public:
     bool GetRun();
     int GetLives();
     int GetScore();
+    int GetLevel();
     Music getMusic();
 };

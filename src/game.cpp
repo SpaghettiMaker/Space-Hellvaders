@@ -111,21 +111,15 @@ void Game::CheckForCollision()
     if (aliens.size() == 0)
     {
         NextLevel();
-        Reset();
     }
 }
 
 int Game::Reset()
 {
-    obstacles = GenerateObstacles();
-    aliens = GenerateAliens();
-    aliensDirection = 1;
-    timeLastAlienFired = 0.0;
-    mysteryShipSpawnInterval = GetRandomValue(10, 20);
-    lives = 3;
-    score = 0;
-    run = true;
-    level = 1;
+    spaceship.Reset();
+    aliens.clear();
+    alienLasers.clear();
+    obstacles.clear();
     return 0;
 }
 
@@ -142,19 +136,25 @@ int Game::GameOver()
 
 int Game::InitGame()
 {
-    spaceship.Reset();
-    aliens.clear();
-    alienLasers.clear();
-    obstacles.clear();
+    obstacles = GenerateObstacles();
+    aliens = GenerateAliens();
+    aliensDirection = 1;
+    timeLastAlienFired = 0.0;
+    mysteryShipSpawnInterval = GetRandomValue(10, 20);
+    lives = 3;
+    score = 0;
+    run = true;
+    level = 1;
     return 0;
 }
 
 void Game::NextLevel()
 {
     ++level;
-    obstacles = GenerateObstacles();
+    spaceship.Reset();
+    aliens.clear();
+    alienLasers.clear();
     aliens = GenerateAliens();
-    mysteryShipSpawnInterval = GetRandomValue(5, 10);
 }
 
 Game::Game()
@@ -162,7 +162,7 @@ Game::Game()
     music = LoadMusicStream("resources/sounds/Sounds_music.ogg");
     explosionSound = LoadSound("resources/sounds/Sounds_explosion.ogg");
     PlayMusicStream(music);
-    Reset();
+    InitGame();
 }
 
 Game::~Game()
@@ -246,8 +246,8 @@ void Game::HandleInput()
     {
         if (IsKeyDown(KEY_ENTER))
         {
-            InitGame();
             Reset();
+            InitGame();
         }
     }
 }

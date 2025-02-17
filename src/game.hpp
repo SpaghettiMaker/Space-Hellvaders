@@ -17,7 +17,7 @@ private:
     int aliensDirection;
     std::vector<Laser> alienLasers;
     void AlienShootLaser();
-    constexpr static float alienLaserShootInterval = 0.35;
+    float alienLaserShootInterval;
     float timeLastAlienFired;
     MysteryShip mysteryShip;
     float mysteryShipSpawnInterval;

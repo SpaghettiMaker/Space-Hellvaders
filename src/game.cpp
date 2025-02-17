@@ -151,6 +151,7 @@ int Game::InitGame()
 void Game::NextLevel()
 {
     ++level;
+    alienLaserShootInterval -= 0.10;
     spaceship.Reset();
     aliens.clear();
     alienLasers.clear();
@@ -161,6 +162,7 @@ Game::Game()
 {
     music = LoadMusicStream("resources/sounds/Sounds_music.ogg");
     explosionSound = LoadSound("resources/sounds/Sounds_explosion.ogg");
+    alienLaserShootInterval = 0.50;
     PlayMusicStream(music);
     InitGame();
 }
